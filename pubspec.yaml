@@ -1,0 +1,29 @@
+name: spaceshooter
+description: "A space shooter game built with the Flame engine."
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flame: ^1.22.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/audio/
+    - assets/images/
+    - assets/images/bullets/
+    - assets/images/explosion/
+    - assets/images/items/
+    - assets/images/meteor/
+    - assets/images/parallax/
+    - assets/images/ships/
+  uses-material-design: true
