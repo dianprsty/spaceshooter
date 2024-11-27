@@ -6,14 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:spaceshooter/component/asteroid_spawner.dart';
 import 'package:spaceshooter/component/bg_parallax.dart';
 import 'package:spaceshooter/component/ship.dart';
+import 'package:spaceshooter/ui/game_data.dart';
+import 'package:spaceshooter/ui/score_text.dart';
 
 class SpaceShooterGame extends FlameGame
     with PanDetector, TapDetector, HasCollisionDetection {
   late Ship ship;
   late BgParallax bgParallax;
   late AsteroidSpawner asteroidSpawner;
+  late GameData data;
+  late ScoreText scoreText;
+
   @override
   FutureOr<void> onLoad() async {
+    data = GameData(0, 3);
     bgParallax = BgParallax();
     add(bgParallax);
 
@@ -22,6 +28,9 @@ class SpaceShooterGame extends FlameGame
 
     asteroidSpawner = AsteroidSpawner();
     add(asteroidSpawner);
+
+    scoreText = ScoreText(data);
+    add(scoreText);
   }
 
   @override
@@ -48,5 +57,9 @@ class SpaceShooterGame extends FlameGame
   void onTapDown(TapDownInfo info) {
     ship.shoot(info);
     super.onTapDown(info);
+  }
+
+  void addScore(int score) {
+    data.addScore(score);
   }
 }

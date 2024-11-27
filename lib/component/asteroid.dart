@@ -5,8 +5,10 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:spaceshooter/component/blast_particle.dart';
 import 'package:spaceshooter/component/bullet.dart';
+import 'package:spaceshooter/pages/space_shooter_game.dart';
 
-class Asteroid extends SpriteComponent with HasGameRef, CollisionCallbacks {
+class Asteroid extends SpriteComponent
+    with HasGameRef<SpaceShooterGame>, CollisionCallbacks {
   double asteroidSize = 0.5;
   late Vector2 direction;
   late double speed;
@@ -47,6 +49,7 @@ class Asteroid extends SpriteComponent with HasGameRef, CollisionCallbacks {
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Bullet) {
       game.add(BlastParticle(particlePosition: position, radius: asteroidSize));
+      game.addScore(10);
       removeFromParent();
     }
     super.onCollision(intersectionPoints, other);
