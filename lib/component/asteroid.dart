@@ -23,17 +23,17 @@ class Asteroid extends SpriteComponent with HasGameRef {
 
     direction = Vector2(x, y);
 
-    speed = random.nextDouble() * 50;
+    speed = 150;
   }
 
   @override
   void update(double dt) {
     position.add(direction * speed * dt);
 
-    if (position.x < 0 ||
-        position.x > game.size.x ||
-        position.y < 0 ||
-        position.y > game.size.y) {
+    if (position.x < -size.x / 2 ||
+        position.x > game.size.x + size.x / 2 ||
+        position.y < -size.y / 2 ||
+        position.y > game.size.y + size.y / 2) {
       removeFromParent();
     }
     super.update(dt);

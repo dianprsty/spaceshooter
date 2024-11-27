@@ -4,8 +4,9 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
+import 'package:spaceshooter/component/bullet.dart';
 
-class Ship extends SpriteComponent {
+class Ship extends SpriteComponent with HasGameRef {
   late Vector2 endPoint;
   late Vector2 direction;
   double speed = 3;
@@ -13,6 +14,7 @@ class Ship extends SpriteComponent {
   Ship() {
     endPoint = position;
     direction = Vector2(0, 0);
+    priority = 2;
   }
 
   void setEndPoint(DragUpdateInfo info) {
@@ -23,9 +25,11 @@ class Ship extends SpriteComponent {
     direction = direction.normalized();
   }
 
-  @override
-  void onMount() {
-    super.onMount();
+  void shoot(TapDownInfo info) {
+    Bullet bullet = Bullet(position, info);
+    game.add(bullet);
+    lookAt(info.eventPosition.global);
+    angle += pi;
   }
 
   @override
@@ -45,6 +49,10 @@ class Ship extends SpriteComponent {
       direction = Vector2(0, 0);
     }
     position.add(direction * speed);
+    if (position.x < 0) position.x = game.size.x;
+    if (position.x > game.size.x) position.x = 0;
+    if (position.y < 0) position.y = game.size.y;
+    if (position.y > game.size.y) position.y = 0;
     super.update(dt);
   }
 }
