@@ -15,7 +15,7 @@ class GameData {
     _live += live;
   }
 
-  void loseLive(int live) {
-    _live -= live;
+  void loseLive() {
+    _live--;
   }
 }

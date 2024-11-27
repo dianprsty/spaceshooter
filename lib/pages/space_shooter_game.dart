@@ -7,6 +7,7 @@ import 'package:spaceshooter/component/asteroid_spawner.dart';
 import 'package:spaceshooter/component/bg_parallax.dart';
 import 'package:spaceshooter/component/ship.dart';
 import 'package:spaceshooter/ui/game_data.dart';
+import 'package:spaceshooter/ui/live_ui.dart';
 import 'package:spaceshooter/ui/score_text.dart';
 
 class SpaceShooterGame extends FlameGame
@@ -16,6 +17,7 @@ class SpaceShooterGame extends FlameGame
   late AsteroidSpawner asteroidSpawner;
   late GameData data;
   late ScoreText scoreText;
+  late LiveUi liveUI;
 
   @override
   FutureOr<void> onLoad() async {
@@ -31,6 +33,9 @@ class SpaceShooterGame extends FlameGame
 
     scoreText = ScoreText(data);
     add(scoreText);
+
+    liveUI = LiveUi(data);
+    add(liveUI);
   }
 
   @override
@@ -61,5 +66,13 @@ class SpaceShooterGame extends FlameGame
 
   void addScore(int score) {
     data.addScore(score);
+  }
+
+  void looseLive() {
+    data.loseLive();
+    liveUI.looseLive();
+    if (data.live <= 0) {
+      // game over
+    }
   }
 }

@@ -13,7 +13,7 @@ class ScoreText extends PositionComponent with HasGameRef {
   @override
   FutureOr<void> onLoad() {
     text = TextComponent(
-      position: Vector2(32, 32),
+      position: Vector2(16, 16),
       text: "Score: ${data.score}",
       textRenderer: TextPaint(
         style: const TextStyle(
