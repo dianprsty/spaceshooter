@@ -8,7 +8,7 @@ import 'package:spaceshooter/component/asteroid.dart';
 class Bullet extends SpriteComponent with HasGameRef, CollisionCallbacks {
   TapDownInfo info;
   late Vector2 direction;
-  double speed = 500;
+  double speed = 1000;
   double timeToLive = 1000;
 
   Bullet(position, this.info) : super(position: position) {
