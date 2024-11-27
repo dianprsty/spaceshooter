@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:spaceshooter/component/asteroid_spawner.dart';
 import 'package:spaceshooter/component/bg_parallax.dart';
@@ -74,6 +75,7 @@ class SpaceShooterGame extends FlameGame
     data.loseLive();
     liveUI.looseLive();
     if (data.live <= 0) {
+      FlameAudio.bgm.stop();
       pauseEngine();
       overlays.add("GameOver");
     }
@@ -85,5 +87,7 @@ class SpaceShooterGame extends FlameGame
     data = GameData(0, 3);
     liveUI.reset(data);
     scoreText.reset(data);
+    FlameAudio.bgm
+        .play("Mysterious Strange Things - Yung Logos.mp3", volume: 0.3);
   }
 }

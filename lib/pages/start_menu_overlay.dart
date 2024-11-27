@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:spaceshooter/pages/space_shooter_game.dart';
 
@@ -35,6 +36,9 @@ class StartMenuOverlay extends StatelessWidget {
                 onPressed: () {
                   game.resumeEngine();
                   game.overlays.remove("StartMenu");
+                  FlameAudio.bgm.play(
+                      "Mysterious Strange Things - Yung Logos.mp3",
+                      volume: 0.3);
                 },
                 child: const Text(
                   "Play Game",

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:spaceshooter/component/blast_particle.dart';
 import 'package:spaceshooter/component/bullet.dart';
 import 'package:spaceshooter/component/ship.dart';
@@ -51,6 +52,7 @@ class Asteroid extends SpriteComponent
     if (other is Bullet || other is Ship) {
       game.add(BlastParticle(particlePosition: position, radius: asteroidSize));
       game.addScore(10);
+      FlameAudio.play("EXPLDsgn_Explosion Impact_14.wav");
       removeFromParent();
     }
     super.onCollision(intersectionPoints, other);

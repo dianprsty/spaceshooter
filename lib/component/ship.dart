@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/rendering.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:spaceshooter/component/bullet.dart';
 import 'package:spaceshooter/component/explosion.dart';
@@ -41,6 +42,8 @@ class Ship extends SpriteComponent
     if (!isShooting) {
       Bullet bullet = Bullet(position, info);
       game.add(bullet);
+      isShooting = true;
+      FlameAudio.play("GUNArtl_Grenade Launcher Fire_05.wav");
     }
     isShooting = true;
     lookAt(info.eventPosition.global);
@@ -103,6 +106,7 @@ class Ship extends SpriteComponent
       decorator.addLast(PaintDecorator.blur(10));
       game.looseLive();
       game.add(Explosion(intersectionPoints.first, Vector2(0.4, 0.4)));
+      FlameAudio.play("EXPLDsgn_Explosion Impact_14.wav");
     }
     super.onCollision(intersectionPoints, other);
   }

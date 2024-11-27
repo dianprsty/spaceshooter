@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spaceshooter/pages/space_shooter_game.dart';
 
 class GameOverOverlay extends StatelessWidget {
