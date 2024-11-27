@@ -21,7 +21,7 @@ class BgParallax extends ParallaxComponent with HasGameRef {
     parallax = await game.loadParallax(
       _parllelImages,
       baseVelocity: Vector2(4, -4),
-      velocityMultiplierDelta: Vector2(1.2, 1.2),
+      velocityMultiplierDelta: Vector2(1.5, 1.5),
       repeat: ImageRepeat.repeat,
     );
   }

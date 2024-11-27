@@ -34,7 +34,7 @@ class Ship extends SpriteComponent {
     position = Vector2(100, 200);
     angle = pi * 1.5;
     // size = Vector2(50, 50);
-    // scale = Vector2(1.5, 1.5);
+    scale = Vector2(0.7, 0.7);
     anchor = Anchor.center;
   }
 

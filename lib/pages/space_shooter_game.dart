@@ -4,16 +4,22 @@ import 'dart:ui';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:spaceshooter/component/asteroid.dart';
 import 'package:spaceshooter/component/bg_parallax.dart';
 import 'package:spaceshooter/component/ship.dart';
 
 class SpaceShooterGame extends FlameGame with PanDetector {
   late Ship ship;
   late BgParallax bgParallax;
+  late Asteroid asteroid;
   @override
   FutureOr<void> onLoad() async {
     bgParallax = BgParallax();
     add(bgParallax);
+
+    asteroid = Asteroid();
+    add(asteroid);
+
     ship = Ship();
     add(ship);
   }
