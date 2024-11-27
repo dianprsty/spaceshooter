@@ -26,4 +26,14 @@ class LiveUi extends PositionComponent with HasGameRef {
       lives.removeLast();
     }
   }
+
+  void reset(GameData data) {
+    gameData = data;
+    for (int i = 0; i < gameData.live; i++) {
+      lives.add(LiveUiComponent());
+      lives[i].position =
+          Vector2(game.size.x - i * (lives[i].width + 50) - 30, 28);
+      game.camera.viewport.add(lives[i]);
+    }
+  }
 }

@@ -76,4 +76,12 @@ class SpaceShooterGame extends FlameGame
       overlays.add("GameOver");
     }
   }
+
+  void reset() {
+    resumeEngine();
+    overlays.remove("GameOver");
+    data = GameData(0, 3);
+    liveUI.reset(data);
+    scoreText.reset(data);
+  }
 }

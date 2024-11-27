@@ -31,4 +31,9 @@ class ScoreText extends PositionComponent with HasGameRef {
     text.text = "Score: ${data.score}";
     super.update(dt);
   }
+
+  void reset(GameData data) {
+    this.data = data;
+    text.text = "Score: ${this.data.score}";
+  }
 }

@@ -30,7 +30,9 @@ class GameOverOverlay extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  game.reset();
+                },
                 child: const Text(
                   "Play Again",
                   style: TextStyle(color: Colors.black),
