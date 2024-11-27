@@ -5,6 +5,8 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
+import 'package:flame/rendering.dart';
+import 'package:flutter/material.dart';
 import 'package:spaceshooter/component/bullet.dart';
 
 class Ship extends SpriteComponent with HasGameRef, CollisionCallbacks {
@@ -12,6 +14,9 @@ class Ship extends SpriteComponent with HasGameRef, CollisionCallbacks {
   late Vector2 direction;
   double speed = 3;
   bool isShooting = false;
+  bool isBeeingHit = false;
+  double hitTimer = 0;
+  double hitCooldown = 20;
   double shootCooldown = 20;
   double shootTimer = 0;
 
@@ -47,6 +52,12 @@ class Ship extends SpriteComponent with HasGameRef, CollisionCallbacks {
     // size = Vector2(50, 50);
     scale = Vector2(0.7, 0.7);
     anchor = Anchor.center;
+    add(
+      CircleHitbox(
+        radius: (sprite!.image.width * 0.7) / 2,
+        collisionType: CollisionType.active,
+      ),
+    );
   }
 
   @override
@@ -56,6 +67,16 @@ class Ship extends SpriteComponent with HasGameRef, CollisionCallbacks {
       if (shootTimer > shootCooldown) {
         isShooting = false;
         shootTimer = 0;
+      }
+    }
+
+    if (isBeeingHit) {
+      hitTimer++;
+      if (hitTimer > hitCooldown) {
+        isBeeingHit = false;
+        hitTimer = 0;
+        decorator.removeLast();
+        decorator.removeLast();
       }
     }
     if ((endPoint - position).length < speed) {
@@ -68,5 +89,16 @@ class Ship extends SpriteComponent with HasGameRef, CollisionCallbacks {
     if (position.y < 0) position.y = game.size.y;
     if (position.y > game.size.y) position.y = 0;
     super.update(dt);
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (!isBeeingHit && other is! Bullet) {
+      isBeeingHit = true;
+      decorator
+          .addLast(PaintDecorator.tint(const Color.fromARGB(2552, 255, 0, 0)));
+      decorator.addLast(PaintDecorator.blur(10));
+    }
+    super.onCollision(intersectionPoints, other);
   }
 }

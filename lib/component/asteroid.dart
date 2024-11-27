@@ -5,6 +5,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:spaceshooter/component/blast_particle.dart';
 import 'package:spaceshooter/component/bullet.dart';
+import 'package:spaceshooter/component/ship.dart';
 import 'package:spaceshooter/pages/space_shooter_game.dart';
 
 class Asteroid extends SpriteComponent
@@ -47,7 +48,7 @@ class Asteroid extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Bullet) {
+    if (other is Bullet || other is Ship) {
       game.add(BlastParticle(particlePosition: position, radius: asteroidSize));
       game.addScore(10);
       removeFromParent();
