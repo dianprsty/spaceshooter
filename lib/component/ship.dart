@@ -8,6 +8,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:spaceshooter/component/bullet.dart';
+import 'package:spaceshooter/component/explosion.dart';
 
 class Ship extends SpriteComponent with HasGameRef, CollisionCallbacks {
   late Vector2 endPoint;
@@ -98,6 +99,7 @@ class Ship extends SpriteComponent with HasGameRef, CollisionCallbacks {
       decorator
           .addLast(PaintDecorator.tint(const Color.fromARGB(2552, 255, 0, 0)));
       decorator.addLast(PaintDecorator.blur(10));
+      game.add(Explosion(intersectionPoints.first, Vector2(0.4, 0.4)));
     }
     super.onCollision(intersectionPoints, other);
   }
