@@ -1,15 +1,19 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:spaceshooter/component/bullet.dart';
 
-class Ship extends SpriteComponent with HasGameRef {
+class Ship extends SpriteComponent with HasGameRef, CollisionCallbacks {
   late Vector2 endPoint;
   late Vector2 direction;
   double speed = 3;
+  bool isShooting = false;
+  double shootCooldown = 20;
+  double shootTimer = 0;
 
   Ship() {
     endPoint = position;
@@ -26,8 +30,11 @@ class Ship extends SpriteComponent with HasGameRef {
   }
 
   void shoot(TapDownInfo info) {
-    Bullet bullet = Bullet(position, info);
-    game.add(bullet);
+    if (!isShooting) {
+      Bullet bullet = Bullet(position, info);
+      game.add(bullet);
+    }
+    isShooting = true;
     lookAt(info.eventPosition.global);
     angle += pi;
   }
@@ -44,6 +51,13 @@ class Ship extends SpriteComponent with HasGameRef {
 
   @override
   void update(double dt) {
+    if (isShooting) {
+      shootTimer++;
+      if (shootTimer > shootCooldown) {
+        isShooting = false;
+        shootTimer = 0;
+      }
+    }
     if ((endPoint - position).length < speed) {
       position = endPoint;
       direction = Vector2(0, 0);

@@ -7,7 +7,8 @@ import 'package:spaceshooter/component/asteroid_spawner.dart';
 import 'package:spaceshooter/component/bg_parallax.dart';
 import 'package:spaceshooter/component/ship.dart';
 
-class SpaceShooterGame extends FlameGame with PanDetector, TapDetector {
+class SpaceShooterGame extends FlameGame
+    with PanDetector, TapDetector, HasCollisionDetection {
   late Ship ship;
   late BgParallax bgParallax;
   late AsteroidSpawner asteroidSpawner;

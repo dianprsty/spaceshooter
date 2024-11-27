@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:spaceshooter/component/bullet.dart';
 
-class Asteroid extends SpriteComponent with HasGameRef {
+class Asteroid extends SpriteComponent with HasGameRef, CollisionCallbacks {
   double asteroidSize = 0.5;
   late Vector2 direction;
   late double speed;
@@ -15,6 +17,7 @@ class Asteroid extends SpriteComponent with HasGameRef {
   FutureOr<void> onLoad() async {
     sprite = await game.loadSprite("meteor/spaceMeteors_001.png");
     anchor = Anchor.center;
+    add(RectangleHitbox(collisionType: CollisionType.passive));
 
     Random random = Random();
 
@@ -37,5 +40,13 @@ class Asteroid extends SpriteComponent with HasGameRef {
       removeFromParent();
     }
     super.update(dt);
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Bullet) {
+      removeFromParent();
+    }
+    super.onCollision(intersectionPoints, other);
   }
 }
