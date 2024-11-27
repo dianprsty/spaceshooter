@@ -2,9 +2,29 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 
 class Ship extends SpriteComponent {
+  late Vector2 endPoint;
+  late Vector2 direction;
+  double speed = 3;
+
+  void setEndPoint(DragUpdateInfo info) {
+    endPoint = info.eventPosition.global;
+    lookAt(endPoint);
+    angle += pi;
+    direction = endPoint - position;
+    direction = direction.normalized();
+  }
+
+  @override
+  void onMount() {
+    endPoint = position;
+    direction = Vector2(0, 0);
+    super.onMount();
+  }
+
   @override
   FutureOr<void> onLoad() async {
     sprite = Sprite(await Flame.images.load("ships/spaceShips_001.png"));
@@ -17,14 +37,11 @@ class Ship extends SpriteComponent {
 
   @override
   void update(double dt) {
-    // position.add(Vector2(5, 2));
-    // if (position.x > 500) {
-    //   position.x = 0;
-    // }
-
-    // if (position.y > 800) {
-    //   position.y = 0;
-    // }
+    if ((endPoint - position).length < speed) {
+      position = endPoint;
+      direction = Vector2(0, 0);
+    }
+    position.add(direction * speed);
     super.update(dt);
   }
 }
