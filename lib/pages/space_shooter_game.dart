@@ -36,6 +36,8 @@ class SpaceShooterGame extends FlameGame
 
     liveUI = LiveUi(data);
     add(liveUI);
+
+    pauseEngine();
   }
 
   @override

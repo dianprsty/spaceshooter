@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spaceshooter/pages/space_shooter_game.dart';
 
-class GameOverOverlay extends StatelessWidget {
+class StartMenuOverlay extends StatelessWidget {
   final SpaceShooterGame game;
-  const GameOverOverlay(this.game, {super.key});
+  const StartMenuOverlay({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +12,13 @@ class GameOverOverlay extends StatelessWidget {
         width: game.size.x * 0.5,
         height: game.size.y * 0.5,
         child: Card(
-          color: const Color.fromARGB(80, 55, 55, 55),
+          color: const Color.fromARGB(100, 55, 102, 233),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "Game Over",
+                "Space Shooter",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30,
@@ -27,15 +26,18 @@ class GameOverOverlay extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
+              Image.asset("assets/images/ships/spaceShips_001.png"),
+              const SizedBox(height: 24),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                 ),
                 onPressed: () {
-                  game.reset();
+                  game.resumeEngine();
+                  game.overlays.remove("StartMenu");
                 },
                 child: const Text(
-                  "Play Again",
+                  "Play Game",
                   style: TextStyle(color: Colors.black),
                 ),
               ),
