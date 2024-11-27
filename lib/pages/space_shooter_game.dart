@@ -1,22 +1,33 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
+import 'package:spaceshooter/component/bg_parallax.dart';
 import 'package:spaceshooter/component/ship.dart';
 
 class SpaceShooterGame extends FlameGame with PanDetector {
   late Ship ship;
+  late BgParallax bgParallax;
   @override
   FutureOr<void> onLoad() async {
+    bgParallax = BgParallax();
+    add(bgParallax);
     ship = Ship();
     add(ship);
   }
 
-  // @override
-  // void onTapDown(TapDownEvent event) {
-  //   log("Tap Down Event ${event.localPosition}");
-  //   ship.position.add(Vector2(10, 0));
-  // }
+  @override
+  Color backgroundColor() {
+    return const Color(0xFF000030);
+  }
+
+  @override
+  void update(double dt) {
+    bgParallax.changeSpeedBasedOnShip(ship);
+    super.update(dt);
+  }
 
   @override
   void onPanUpdate(DragUpdateInfo info) {

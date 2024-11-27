@@ -10,6 +10,11 @@ class Ship extends SpriteComponent {
   late Vector2 direction;
   double speed = 3;
 
+  Ship() {
+    endPoint = position;
+    direction = Vector2(0, 0);
+  }
+
   void setEndPoint(DragUpdateInfo info) {
     endPoint = info.eventPosition.global;
     lookAt(endPoint);
@@ -20,8 +25,6 @@ class Ship extends SpriteComponent {
 
   @override
   void onMount() {
-    endPoint = position;
-    direction = Vector2(0, 0);
     super.onMount();
   }
 
