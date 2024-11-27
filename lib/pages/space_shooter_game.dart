@@ -72,7 +72,8 @@ class SpaceShooterGame extends FlameGame
     data.loseLive();
     liveUI.looseLive();
     if (data.live <= 0) {
-      // game over
+      pauseEngine();
+      overlays.add("GameOver");
     }
   }
 }
