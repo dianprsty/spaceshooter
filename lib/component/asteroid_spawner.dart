@@ -14,7 +14,7 @@ class AsteroidSpawner extends PositionComponent with HasGameRef {
     Random random = Random();
     spawner = SpawnComponent(
       factory: (amount) {
-        return Asteroid(asteroidSize: random.nextDouble() * 0.3 + 0.3);
+        return Asteroid(asteroidSize: random.nextDouble() * 0.1 + 0.3);
       },
       period: 1,
       autoStart: true,
