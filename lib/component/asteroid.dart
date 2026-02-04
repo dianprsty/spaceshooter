@@ -20,7 +20,7 @@ class Asteroid extends SpriteComponent
   }
   @override
   FutureOr<void> onLoad() async {
-    sprite = await game.loadSprite("meteor/spaceMeteors_001.png");
+    sprite = await game.loadSprite("meteor/sinbe.png");
     anchor = Anchor.center;
     add(RectangleHitbox(collisionType: CollisionType.passive));
 
